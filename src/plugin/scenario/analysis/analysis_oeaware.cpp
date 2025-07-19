@@ -20,6 +20,8 @@
 
 extern "C" void GetInstance(std::vector<std::shared_ptr<oeaware::Interface>> &interface)
 {
+#ifdef __riscv
+#else
     interface.emplace_back(std::make_shared<oeaware::HugePageAnalysis>());
     interface.emplace_back(std::make_shared<oeaware::DynamicSmtAnalysis>());
     interface.emplace_back(std::make_shared<oeaware::SmcDAnalysis>());
@@ -28,4 +30,5 @@ extern "C" void GetInstance(std::vector<std::shared_ptr<oeaware::Interface>> &in
     interface.emplace_back(std::make_shared<oeaware::NumaAnalysis>());
     interface.emplace_back(std::make_shared<oeaware::DockerCoordinationBurstAnalysis>());
     interface.emplace_back(std::make_shared<oeaware::MicroarchTidNoCmpAnalysis>());
+#endif
 }

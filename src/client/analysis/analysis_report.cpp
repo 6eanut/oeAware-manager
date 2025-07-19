@@ -73,6 +73,14 @@ void AnalysisReport::Init(Config &config)
                   << ", using default values." << std::endl;
     }
 #ifdef __riscv
+    std::string timeParam = "t:" + std::to_string(config.GetAnalysisTimeMs());
+    
+    std::string hostCpuUsage = "hostCpuUsageThreshold:" +
+                std::to_string(config.GetDockerCoordinationBurstHostCpuUsageThreshold());
+    std::string dockerCpuUsage = "dockerCpuUsageThreshold:" +
+                std::to_string(config.GetDockerCoordinationBurstDockerCpuUsageThreshold());
+    AddAnalysisTopic("docker_coordination_burst_analysis", "docker_coordination_burst",
+                     {timeParam, hostCpuUsage, dockerCpuUsage});
 #else
     std::string timeParam = "t:" + std::to_string(config.GetAnalysisTimeMs());
     std::string threshold1 = "threshold1:" + std::to_string(config.GetL1MissThreshold());

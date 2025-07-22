@@ -75,6 +75,8 @@ void AnalysisReport::Init(Config &config)
 #ifdef __riscv
     std::string timeParam = "t:" + std::to_string(config.GetAnalysisTimeMs());
     
+    AddAnalysisTopic(OE_NET_HIRQ_ANALYSIS, OE_NET_HIRQ_ANALYSIS, {timeParam});
+    
     std::string threshold1 = "threshold1:" + std::to_string(config.GetL1MissThreshold());
     std::string threshold2 = "threshold2:" + std::to_string(config.GetL2MissThreshold());
     AddAnalysisTopic("hugepage_analysis", "hugepage", {timeParam, threshold1, threshold2});
@@ -95,8 +97,6 @@ void AnalysisReport::Init(Config &config)
 
     std::string threadThreshold = "threshold:" + std::to_string(config.GetNumaThreadThreshold());
     AddAnalysisTopic("numa_analysis", "numa_analysis", {timeParam, threadThreshold});
-
-    AddAnalysisTopic(OE_NET_HIRQ_ANALYSIS, OE_NET_HIRQ_ANALYSIS, {timeParam});
 #else
     std::string timeParam = "t:" + std::to_string(config.GetAnalysisTimeMs());
     std::string threshold1 = "threshold1:" + std::to_string(config.GetL1MissThreshold());
